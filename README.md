@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+# Libraries and structure with brief explanation:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Initial
 
-## Available Scripts
+- Create React App or a custom bare bones setup?
+  - CRA for quick setup - tradeoff is bloat
 
-In the project directory, you can run:
+## Folder Structure
 
-### `npm start`
+- Used the large scale structure outlined here: https://www.robinwieruch.de/react-folder-structure/
+- Each component is inside a folder with its corresponding scss file. All exports in the folder are done via a single index.ts file.
+- This structure allows for test files or type files to be added as needed in the future.
+- Sass folder with global styles, reset, mixins, variables.
+- Utils folder, custom hooks folder as needed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Commit convention
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- https://www.conventionalcommits.org/en/v1.0.0/#summary
+- This is a condensed cheatsheet of the above: https://kapeli.com/cheat_sheets/Conventional_Commits.docset/Contents/Resources/Documents/index
 
-### `npm test`
+## Date library
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Most downloads in npmtrends https://npmtrends.com/date-fns-vs-dayjs-vs-luxon-vs-moment
+- Momentjs has the most, but its use is discouraged by the Momentjs team and is considered legacy at this point in time.
 
-### `npm run build`
+## Axios vs fetch
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Axios has all the features of fetch with a few extras.
+- https://betterprogramming.pub/why-javascript-developers-should-prefer-axios-over-fetch-294b28a96e2c
+  - Can work with response data in 1 step vs 2 for fetch.
+  - Better error handling.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Misc
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- ESLINT required for all projects
+- Prettier via vscode extension
+- react-stars for rating UI
