@@ -20,8 +20,9 @@
 
 ## Date library
 
-- Most downloads in npmtrends https://npmtrends.com/date-fns-vs-dayjs-vs-luxon-vs-moment
-- Momentjs has the most, but its use is discouraged by the Momentjs team and is considered legacy at this point in time.
+- date-fns
+  - Most downloads in npmtrends https://npmtrends.com/date-fns-vs-dayjs-vs-luxon-vs-moment
+  - Momentjs has the most, but its use is discouraged by the Momentjs team and is considered legacy at this point in time.
 
 ## Axios vs fetch
 
