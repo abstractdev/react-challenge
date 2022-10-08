@@ -1,0 +1,15 @@
+@use "../../../sass/variables" as *;
+@use "../../../sass/mixin" as *;
+
+.button {
+  padding: 1rem 0;
+  background-color: $color-primary;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  color: $color-white;
+  width: 300px;
+  @include large {
+    width: 600px;
+  }
+}

@@ -1,0 +1,20 @@
+@use "../../../sass/mixin" as *;
+
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid black;
+  padding: 0.5rem;
+  overflow-wrap: break-word;
+  width: 300px;
+  @include large {
+    width: 600px;
+  }
+}

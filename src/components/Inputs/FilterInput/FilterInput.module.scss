@@ -1,0 +1,6 @@
+@use "../../../sass/mixin" as *;
+
+.container {
+  @include container;
+  flex: 1;
+}
