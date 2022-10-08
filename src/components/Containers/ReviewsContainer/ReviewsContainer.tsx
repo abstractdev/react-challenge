@@ -1,0 +1,48 @@
+import React from "react";
+import styles from "./ReviewsContainer.module.scss";
+import { ReviewType } from "../../../types/ReviewType";
+import categorizeReview from "../../../utils/helpers/categorizeReviewByTime";
+import LoadMoreButton from "../../Buttons/LoadMoreButton/LoadMoreButton";
+import ReviewCard from "../../Cards/ReviewCard/ReviewCard";
+import { Props } from "./Props.type";
+import formatDate from "../../../utils/helpers/formatDate";
+
+export default function ReviewsContainer({
+  reviews,
+  reviewsTimeCategories,
+  thisPage,
+  totalPages,
+  setThisPage,
+}: Props) {
+  return (
+    <>
+      {reviewsTimeCategories?.map((e: string) => {
+        return (
+          <React.Fragment key={e}>
+            <h1>{e}</h1>
+            <div className={styles["reviews-container"]}>
+              {reviews?.map((f: ReviewType) => {
+                return (
+                  <React.Fragment key={f.id + f.author}>
+                    {categorizeReview(f.date) === e && (
+                      <div className={styles["card-container"]}>
+                        <ReviewCard
+                          stars={f.stars}
+                          title={f.title}
+                          review={f.review}
+                          author={f.author}
+                          date={formatDate(f.date)}
+                        />
+                      </div>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </div>
+          </React.Fragment>
+        );
+      })}
+      {totalPages > thisPage && <LoadMoreButton setThisPage={setThisPage} />}
+    </>
+  );
+}
