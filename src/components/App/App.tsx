@@ -9,7 +9,7 @@ import { ReviewsArrayType } from "../../types/ReviewType";
 import selectOptions from "../../utils/data/optionsArray";
 import { getReviews } from "../../axios/getReviews";
 import NetworkErrorMessage from "../Errors/NetworkErrorMessage/NetworkErrorMessage";
-import createArrayFromSet from "../../utils/helpers/createArrayFromSet";
+import createUniqueTimeCategoriesArray from "../../utils/helpers/createUniqueTimeCategoriesArray";
 
 export default function App() {
   const [reviews, setReviews] = useState<ReviewsArrayType>([]);
@@ -25,6 +25,7 @@ export default function App() {
   const [selected, setSelected] = useState(selectOptions[0].value);
   const [isError, setIsError] = useState<boolean | null>(null);
   const [isResults, setIsResults] = useState<boolean | null>(null);
+  const [totalReviews, setTotalReviews] = useState(0);
 
   useEffect(() => {
     if (debouncedValue || ratingValue) {
@@ -45,13 +46,16 @@ export default function App() {
           setReviewsTimeCategories([]);
           setThisPage(0);
           setTotalPages(0);
+          setTotalReviews(0);
         } else if (res && res.data.reviews.length) {
           setIsError(false);
           setIsResults(true);
           setTotalPages(res.data.pages);
-          //createArrayFromSet takes an array as input and returns an array with a unique set of elements
-          const arrayFromSet = createArrayFromSet(res.data.reviews);
-          setReviewsTimeCategories([...arrayFromSet]);
+          setTotalReviews(res.data.total);
+          //createUniqueTimeCategoriesArray takes an array of reviews as input and returns an array with unique time category elements
+          setReviewsTimeCategories(
+            createUniqueTimeCategoriesArray(res.data.reviews)
+          );
           setReviews([...res.data.reviews]);
           setIsLoading(false);
         } else {
@@ -78,10 +82,14 @@ export default function App() {
         } else if (res && res.data.reviews.length) {
           setIsError(false);
           setIsResults(true);
-          //createArrayFromSet takes an array as input and returns an array with a unique set of elements
-          const arrayFromSet = createArrayFromSet(res.data.reviews);
-          //update state by spreading existing state and paged data
-          setReviewsTimeCategories([...reviewsTimeCategories, ...arrayFromSet]);
+          //createUniqueTimeCategoriesArray takes an array of reviews as input and returns an array with unique time category elements
+          setReviewsTimeCategories(
+            createUniqueTimeCategoriesArray(
+              res.data.reviews,
+              reviewsTimeCategories
+            )
+          );
+          //update reviews state by spreading existing state and paged data
           setReviews([...reviews, ...res.data.reviews]);
           setIsLoading(false);
         } else {
@@ -112,18 +120,19 @@ export default function App() {
               selected={selected}
               setSelected={setSelected}
             />
-            <>{console.log(inputValue)}</>
-            <>{console.log(ratingValue)}</>
           </form>
           {isError && <NetworkErrorMessage />}
-          {isResults === false && <h2>NO RESULTS</h2>}
-          <ReviewsContainer
-            reviews={reviews}
-            reviewsTimeCategories={reviewsTimeCategories}
-            thisPage={thisPage}
-            totalPages={totalPages}
-            setThisPage={setThisPage}
-          />
+          {isResults === false && <h1>NO RESULTS</h1>}
+          {isResults && (
+            <ReviewsContainer
+              reviews={reviews}
+              reviewsTimeCategories={reviewsTimeCategories}
+              thisPage={thisPage}
+              totalPages={totalPages}
+              setThisPage={setThisPage}
+              totalReviews={totalReviews}
+            />
+          )}
         </>
       )}
     </div>
