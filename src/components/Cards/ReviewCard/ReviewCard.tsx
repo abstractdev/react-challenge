@@ -11,7 +11,7 @@ export default function ReviewCard({ ...props }: Props) {
       {cardData.map((e, i) => {
         if (e[0] === "stars") {
           return (
-            <div key={i + e[1]}>
+            <React.Fragment key={props.id + e[0]}>
               <ReactStars
                 count={5}
                 value={formatRating(e[1])}
@@ -20,20 +20,30 @@ export default function ReviewCard({ ...props }: Props) {
                 color2={"#ffd700"}
                 edit={false}
               />
-            </div>
+            </React.Fragment>
           );
         } else if (e[0] === "title") {
-          return <h3 key={i + e[1]}>{e[1]}</h3>;
+          return (
+            <React.Fragment key={props.id + e[0]}>
+              <h3>{e[1]}</h3>
+            </React.Fragment>
+          );
         } else if (e[0] === "author") {
           return (
-            <small key={i + e[1]} className={styles.author}>{`by ${e[1]} on ${
-              cardData[i + 1][1]
-            }`}</small>
+            <React.Fragment key={props.id + e[0]}>
+              <small className={styles.author}>{`by ${e[1]} on ${
+                cardData[i + 1][1]
+              }`}</small>
+            </React.Fragment>
           );
-        } else if (e[0] === "date") {
-          return <React.Fragment key={i + e[1]}></React.Fragment>;
+        } else if (e[0] === "date" || e[0] === "id") {
+          return <React.Fragment key={props.id + e[0]}></React.Fragment>;
         } else {
-          return <p key={i + e[1]}>{e[1]}</p>;
+          return (
+            <React.Fragment key={props.id + e[0]}>
+              <p>{e[1]}</p>
+            </React.Fragment>
+          );
         }
       })}
     </>
