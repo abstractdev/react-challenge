@@ -7,4 +7,5 @@ export type Props = {
   setThisPage: React.Dispatch<SetStateAction<number>>;
   thisPage: number;
   totalPages: number;
+  totalReviews: number;
 };

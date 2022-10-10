@@ -13,20 +13,25 @@ export default function ReviewsContainer({
   thisPage,
   totalPages,
   setThisPage,
+  totalReviews,
 }: Props) {
   return (
     <>
+      <h1
+        className={styles["total-reviews"]}
+      >{`Showing ${totalReviews} reviews`}</h1>
       {reviewsTimeCategories?.map((e: string) => {
         return (
           <React.Fragment key={e}>
             <h1>{e}</h1>
-            <div className={styles["reviews-container"]}>
+            <main className={styles["reviews-container"]}>
               {reviews?.map((f: ReviewType) => {
                 return (
-                  <React.Fragment key={f.id + f.author}>
+                  <React.Fragment key={f.id}>
                     {categorizeReview(f.date) === e && (
                       <div className={styles["card-container"]}>
                         <ReviewCard
+                          id={f.id}
                           stars={f.stars}
                           title={f.title}
                           review={f.review}
@@ -38,7 +43,7 @@ export default function ReviewsContainer({
                   </React.Fragment>
                 );
               })}
-            </div>
+            </main>
           </React.Fragment>
         );
       })}
